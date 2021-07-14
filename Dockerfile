@@ -14,6 +14,9 @@ RUN sudo -u misha /bin/bash -c "mkdir /home/misha/.ssh && touch /home/misha/.ssh
 RUN sudo -u misha /bin/bash -c "curl https://github.com/farberbrodsky.keys > /home/misha/.ssh/authorized_keys"
 RUN apt-get install -y openssh-server
 
+# LS Deluxe
+RUN /bin/bash -c "cd /home/misha; X=\$(sudo -u misha /home/misha/scripts/github_latest_release Peltoche/lsd); Y=\$(echo \$X | sed \"s/.*download\\///;s/\\///\"); echo X \$X Y \$Y; wget \${X}lsd_\${Y}_amd64.deb; apt-get install -y ./lsd*; rm ./lsd*"
+
 # Starship shell prompt
 RUN sudo -u misha /bin/bash -c "cd /home/misha && wget $(/home/misha/scripts/github_latest_release starship/starship)starship-x86_64-unknown-linux-gnu.tar.gz && tar -xvf starship* && mkdir -p .local/bin && mv starship .local/bin/ && rm starship*"
 
