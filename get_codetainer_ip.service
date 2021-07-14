@@ -1,7 +1,11 @@
 [Unit]
 Description=get codetainer ip
-Type=simple
 After=docker.service
 
 [Service]
+Type=simple
 ExecStart=/bin/bash -c "while true; do sleep 15; (docker container inspect my_codetainer | grep -o '\"IPAddress\": \".*\",' | sed 's/\"IPAddress\": \"//' | sed 's/\",//' | head -n 1) > /var/run/codetainer-ip; chmod a+r /var/run/codetainer-ip; sleep 30; done"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
