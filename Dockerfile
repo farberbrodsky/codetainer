@@ -25,4 +25,7 @@ RUN apt-get install -y neovim npm
 RUN sudo -u misha /bin/bash -c "curl -fLo /home/misha/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 RUN sudo -u misha /bin/bash -c "cd /home/misha && nvim +'PlugInstall' +qa --headless"
 
+# Miscallaneous packages
+RUN apt-get install -y python3-pip python3-venv
+
 CMD /etc/init.d/ssh start & /bin/bash -c "while true; do sleep 999; done"
